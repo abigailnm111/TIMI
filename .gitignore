@@ -1,0 +1,16 @@
+# Ignore environment variable files
+.env
+.env.*
+
+# Node modules
+node_modules/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+
+# Ignore secrets
+secrets.json
+secrets.js
