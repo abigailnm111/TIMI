@@ -52,13 +52,12 @@ app.post('/signIn', async (req, res) => {
     }
 });
 
-//TODO
+//body contains: user_id
 app.get('/getPosts', async (req, res) => {
     try{
-        //where userId = followerId on follower table, and userId from follower table = userId on post table
         const queryRes = await pool.query('SELECT * FROM followers INNER JOIN posts ON followers.user_id = posts.user_id WHERE followers.follower_id = $1 ', [req.body.user_id]);
         if (queryRes.rows.length > 0) {
-             res.status(200).json({ message: 'Got your feed', posts: queryRes.rows[0] });
+             res.status(200).json({ message: 'Got your feed', posts: queryRes.rows });
             return res;
         }else {
             return res.status(401).send("you don't follow anyone");
@@ -68,18 +67,18 @@ app.get('/getPosts', async (req, res) => {
     }
 });
 
-//TODO
+//body contains: user_id, content, title, media_url, content_type
 app.post('/createPost', async (req, res) => {
     try{
         const queryRes=await pool.query('INSERT INTO posts (user_id, content, title, media_url, content_type) VALUES ($1, $2, $3, $4, $5) RETURNING *', [req.body.user_id, req.body.content, req.body.title, req.body.media_url, req.body.content_type]);
-        res.json({ message: 'User created successful', postId: queryRes.rows[0].id }).status(200);
+        res.json({ message: 'Post created successful', postId: queryRes.rows[0].id }).status(200);
         return res;
     }catch (error) {
         res.status(500).send('Error executing query:'+error.stack);
         return res}
 });
 
-//TODO
+//body contains: user_id, follower_id
 app.post('/followUser', async (req, res) => {
     try{
         const queryRes=await pool.query('INSERT INTO followers (user_id, follower_id) VALUES ($1, $2) RETURNING *', [req.body.user_id, req.body.follower_id, ]);
