@@ -1,3 +1,3 @@
 
 Frontend: npm run start:client
-Backend: npm run start:server
+Backend: http://127.0.0.1:8000

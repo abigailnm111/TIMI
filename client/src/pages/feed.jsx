@@ -3,7 +3,7 @@ import { Post } from "../components/post";
 
 export function  Feed(){
 
-    const posts=async ()=> await getPosts({user_id: 1});   
+    const posts=async ()=> await getPosts({user_id: 1}).posts;   
     
     //fix mapping posts 
     return (
