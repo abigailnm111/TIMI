@@ -65,13 +65,15 @@ async def signIn(request: Request):
 
 #Body contains: user_id
 @app.get("/getPosts")
-async def getPosts(request: Request):
-    data = await request.json()
+async def getPosts(user_id):
+    print("REQUEST"+user_id)
+   # data = await request.json()
+    
     try:
         with conn.cursor() as cur:
             cur.execute(
                 'SELECT * FROM followers INNER JOIN posts ON followers.user_id = posts.user_id WHERE followers.follower_id = %s',
-                (str(data["user_id"]))
+                (user_id)
             )
             posts= cur.fetchall()
             if not posts:

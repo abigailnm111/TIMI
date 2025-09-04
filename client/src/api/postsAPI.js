@@ -3,12 +3,12 @@ import { baseURL } from '../routes.js';
 
 //body contains: user_id
 export async function getPosts(postData){
-    const posts=await fetch(baseURL+'/getPosts', {
+  console.log('Fetching posts for user:', postData.user_id);
+    const posts=await fetch(baseURL+`/getPosts/?user_id=${postData.user_id}`, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
     },
-    body: JSON.stringify(postData) // Convert JavaScript object to JSON string
     })
     .then(response => {
         if (!response.ok) {

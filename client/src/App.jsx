@@ -11,7 +11,8 @@ function App() {
   return (
     <>
       {user===null&&<SignInPage setUser={setUser} />}
-      {user!==null && <><h1>Welcome {user.username}</h1> <Feed/></>}
+      {user!==null && <><h1>Welcome {user.username}</h1> <Feed user_id={user.userId}/></>}
+      {user!=null && <><label>View User Profile. Enter username</label><input type="text"></input></>}
 
 
     </>
